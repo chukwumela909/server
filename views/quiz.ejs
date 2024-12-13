@@ -1,0 +1,162 @@
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #121212;
+        /* Dark background */
+        color: #ffffff;
+        /* White text */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 20px;
+        /* Add some padding for smaller screens */
+    }
+
+    .questionnaire-container {
+        background-color: #1e1e1e;
+        /* Slightly lighter dark background */
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        width: 100%;
+        max-width: 600px;
+        /* Set a max width for larger screens */
+        text-align: left;
+        /* Align text to the left */
+    }
+
+    .questionnaire-title {
+        margin-bottom: 20px;
+        font-size: 24px;
+        text-align: center;
+        /* Center the title */
+    }
+
+    .questions-list {
+        margin-bottom: 20px;
+    }
+
+    .question {
+        margin-bottom: 20px;
+        /* Space between questions */
+        padding: 10px;
+        border: 1px solid #444;
+        /* Border for each question */
+        border-radius: 5px;
+        background-color: #2a2a2a;
+        /* Background for questions */
+    }
+
+    .question-text {
+        font-size: 18px;
+        margin-bottom: 10px;
+        word-wrap: break-word;
+    }
+
+    .option-label {
+        display: block;
+        /* Stack options vertically */
+        margin: 5px 0;
+        font-size: 16px;
+        /* Font size for options */
+    }
+
+    .nav-button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        /* Green button */
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 100%;
+        /* Full width for the submit button */
+    }
+
+    .nav-button:hover {
+        background-color: #45a049;
+        /* Darker green on hover */
+    }
+</style>
+
+
+
+<body>
+    <!-- <div class="questionnaire-container">
+        <h1 class="questionnaire-title">Test Yourself</h1>
+        <form id="questionnaire-form">
+            <div class="questions-list">
+                <% questions.forEach((q, index)=> { %>
+                    <div class="question" data-index="<%= index %>">
+                        <p class="question-text">
+                            <%= q.question %>
+                        </p>
+                        <% q.options.forEach(option=> { %>
+                            <label class="option-label">
+                                <input type="radio" name="question-<%= index %>" value="<%= option %>">
+                                <%= option %>
+                            </label>
+                            <% }); %>
+                    </div>
+                    <% }); %>
+            </div>
+            <button type="submit" id="submit-button" class="nav-button">Submit</button>
+        </form>
+    </div> -->
+
+    <div class="questionnaire-container">
+        <h1 class="questionnaire-title">Test Yourself</h1>
+        <a style="background-color: #4CAF50; color: white; padding: 10px 40px; position: fixed; top: 30; left: 40; text-decoration: none; border-radius: 13px;" href="/questions/create"> Add more</a>
+        <form id="questionnaire-form" action="/questions/submit-answers" method="POST">
+            <div class="questions-list">
+                <% questions.forEach((q, index) => { %>
+                    <div class="question" data-index="<%= index %>">
+                        <p class="question-text"><%= q.question %></p>
+                        <% q.options.forEach(option => { %>
+                            <label class="option-label">
+                                <input type="radio" name="question-<%= index %>" value="<%= option %>">
+                                <%= option %>
+                            </label>
+                        <% }); %>
+                    </div>
+                <% }); %>
+            </div>
+            <button type="submit" id="submit-button" class="nav-button">Submit</button>
+        </form>
+    </div>
+
+    <!-- <script>
+        const userAnswers = {};
+
+
+
+        // Add event listeners to radio buttons
+        document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+            radio.addEventListener('change', function () {
+                const index = this.name.split('-')[1]; // Extract index from name
+                userAnswers[`question-${index}`] = this.value;
+                console.log(userAnswers)
+            });
+        });
+
+        document.getElementById('questionnaire-form').addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+
+            console.log(JSON.stringify(userAnswers))
+            // Send the answers to the server (you can adjust the URL as needed)
+            fetch('http://localhost:1200/questions/submit-answers', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userAnswers)
+            })
+                .then(response => console.log(response))
+                .catch(error => {
+                    console.log(error)
+                });
+        });
+    </script> -->
+</body>

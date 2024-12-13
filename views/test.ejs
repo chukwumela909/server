@@ -1,0 +1,14 @@
+<h1>Test Yourself</h1>
+<form>
+    <% questions.forEach((q, index) => { %>
+        <div>
+            <p><%= q.question %></p>
+            <% q.options.forEach(option => { %>
+                <label>
+                    <input type="radio" name="question-<%= index %>" value="<%= option %>"> <%= option %>
+                </label>
+            <% }); %>
+        </div>
+    <% }); %>
+    <button type="submit">Submit</button>
+</form>
