@@ -1,5 +1,5 @@
 <style>
-    body{
+    body {
         font-family: 'Arial', sans-serif;
         background-color: #121212;
         /* Dark background */
@@ -16,7 +16,18 @@
 
 
 <body>
-    <h1 style="margin-bottom:  20px;">Your Score: <%= score %> / <%= total %></h1>
-    <a style="background-color: #4CAF50; color: white; padding: 10px 40px;  text-decoration: none; border-radius: 13px;margin-bottom:  20px;" href="/questions/quiz">Try Again</a>
-    <a style="background-color: #4c93af; color: white; padding: 10px 40px;  text-decoration: none; border-radius: 13px;" href="/questions/create">Add more</a>
+    <h1 style="margin-bottom:  20px;">Your Score: <%= score %> / <%= total %>
+    </h1>
+    <a style="background-color: #4CAF50; color: white; padding: 10px 40px;  text-decoration: none; border-radius: 13px;margin-bottom:  20px;"
+        href="/questions/quiz">Try Again</a>
+    <a style="background-color: #4c93af; color: white; padding: 10px 40px;  text-decoration: none; border-radius: 13px; margin-bottom:  20px;"
+        href="/questions/create">Add more</a>
+        <form action="/questions/delete" method="POST">
+            <button type="submit" onclick="deleteQuestions()"
+        style="background-color: red; color: white; padding: 10px 40px;  text-decoration: none; border-radius: 13px; border: none;cursor: pointer;">Delete
+        questions</button>
+        </form>
+    
+
+
 </body>

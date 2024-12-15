@@ -80,6 +80,21 @@
         background-color: #45a049;
         /* Darker green on hover */
     }
+
+    .correct {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .incorrect {
+        background-color: #F44336;
+        color: white;
+    }
+
+    .disabled {
+        pointer-events: none;
+        opacity: 0.7;
+    }
 </style>
 
 
@@ -113,7 +128,7 @@
         <form id="questionnaire-form" action="/questions/submit-answers" method="POST">
             <div class="questions-list">
                 <% questions.forEach((q, index) => { %>
-                    <div class="question" data-index="<%= index %>">
+                    <div class="question" data-index="<%= index %>" data-correct="<%= q.answer %>">
                         <p class="question-text"><%= q.question %></p>
                         <% q.options.forEach(option => { %>
                             <label class="option-label">
@@ -128,35 +143,37 @@
         </form>
     </div>
 
-    <!-- <script>
-        const userAnswers = {};
+    <script>
+            document.addEventListener("DOMContentLoaded", () => {
+        const questions = document.querySelectorAll(".question");
 
+        questions.forEach((question) => {
+            const correctAnswer = question.getAttribute("data-correct");
+            const options = question.querySelectorAll("input[type='radio']");
 
+            options.forEach((option) => {
+                option.addEventListener("change", () => {
+                    // Disable all options after an answer is selected
+                    options.forEach((opt) => {
+                        opt.parentElement.classList.add("disabled");
+                    });
 
-        // Add event listeners to radio buttons
-        document.querySelectorAll('input[type="radio"]').forEach((radio) => {
-            radio.addEventListener('change', function () {
-                const index = this.name.split('-')[1]; // Extract index from name
-                userAnswers[`question-${index}`] = this.value;
-                console.log(userAnswers)
+                    // Highlight the selected answer
+                    if (option.value === correctAnswer) {
+                        option.parentElement.classList.add("correct");
+                    } else {
+                        option.parentElement.classList.add("incorrect");
+                    }
+
+                    // Highlight the correct answer
+                    options.forEach((opt) => {
+                        if (opt.value === correctAnswer) {
+                            opt.parentElement.classList.add("correct");
+                        }
+                    });
+                });
             });
         });
-
-        document.getElementById('questionnaire-form').addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevent default form submission
-
-
-            console.log(JSON.stringify(userAnswers))
-            // Send the answers to the server (you can adjust the URL as needed)
-            fetch('http://localhost:1200/questions/submit-answers', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userAnswers)
-            })
-                .then(response => console.log(response))
-                .catch(error => {
-                    console.log(error)
-                });
-        });
-    </script> -->
+    });
+    </script>
 </body>

@@ -70,4 +70,16 @@ router.post('/submit-answers', async (req, res) => {
     }
 });
 
+router.post('/delete', async (req, res) => {
+    try {
+        await Question.deleteMany({});
+        // res.status(200).json({ error: false });
+        res.redirect('/questions/create');
+    } catch (error) {
+        console.error('Error deleting questions:', error);
+        res.status(500).json({ error: true });
+    }
+})
+
+
 module.exports = router;
